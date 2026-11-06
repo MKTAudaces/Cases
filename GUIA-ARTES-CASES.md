@@ -16,6 +16,9 @@
    [`scripts/medir_referencia.py`](scripts/medir_referencia.py). Não estime a olho.
 3. **Partir do último case pronto como template**: duplicar o frame de formatos e trocar
    foto e copy. Não criar do zero, porque foi do zero que vieram os erros do início.
+   A Plugin API **não copia nós entre arquivos**: o usuário deve **duplicar o arquivo do case
+   Giadamarina no Figma** (Duplicate) e enviar o link da cópia. Se o link for de um arquivo vazio,
+   peça isso antes de começar.
 4. Aplicar a copy com as adaptações da seção 4 (ex.: "+" no lugar de "x").
 5. Conferir **cada formato** com a tabela da seção 5 e o checklist da seção 9 antes de entregar.
 6. Entregar com screenshot e listar o que foi decidido por julgamento (ex.: "texto na base
