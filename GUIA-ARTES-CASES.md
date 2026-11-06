@@ -38,6 +38,7 @@
 | 9 | Placeholder "Nome do Cliente" / "Breve descrizione..." | Substituir todos os textos. Procurar por placeholders antes de entregar. |
 | 10 | **Legenda do vídeo gravada na foto** ("tanti altri brand") apareceu quando o degradê ficou mais claro | Conferir as bordas da foto; reenquadrar (`imageTransform`) ou trocar o frame. |
 | 11 | Título no topo **cobrindo o rosto** | Se o rosto está no terço superior, o bloco de texto vai para a base. O rosto nunca fica sob texto. |
+| 12 | Artes feitas em **Inter** | Fontes oficiais: **Sora** (título) e **Poppins** (demais textos). Ver seção 5.1. |
 
 ---
 
@@ -122,7 +123,7 @@ Camadas de cada formato: `Foto` (image fill, `scaleMode: CROP`), `Gradiente` (1 
 
 ## 5. Especificação por formato
 
-Regras gerais: margem **80px** (Stories: **250px** em cima e embaixo). Fonte **Inter**.
+Regras gerais: margem **80px** (Stories: **250px** em cima e embaixo). Fontes oficiais dos cases: **Sora** (títulos) e **Poppins** (demais textos). Ver seção 5.1.
 
 | Formato | Logo | Layout | Textos (px) |
 |---|---|---|---|
@@ -144,10 +145,22 @@ Notas de julgamento:
 
 | Componente | Especificação |
 |---|---|
-| **Tag** | Pílula (raio 999), contorno branco 2px, sem preenchimento, Inter **Semi Bold 22**, maiúsculas, espaçamento 6%, padding 26×11 → ≈292×49 |
-| **Botão** | Preenchimento laranja `#FF5E00` (referência mede `#FF6700`), Inter **Bold 28** branco, espaçamento 2%, padding 36×16 → ≈342×66, **raio 22** |
-| **Título** | Inter **Bold**, entrelinha 95%, espaçamento −2%, branco |
-| **Subtítulo** | Inter **Medium**, entrelinha 130%, branco |
+| **Tag** | Pílula (raio 999), contorno branco 2px, sem preenchimento, Poppins **Medium 22**, maiúsculas, espaçamento 6%, padding 26×11 → ≈292×49 |
+| **Botão** | Preenchimento laranja `#FF5E00` (referência mede `#FF6700`), Poppins **SemiBold 28** branco, espaçamento 2%, padding 36×16 → ≈342×66, **raio 22** |
+| **Título** | **Sora Bold**, entrelinha 95%, espaçamento −2%, branco |
+| **Subtítulo** | **Poppins Medium**, entrelinha 130%, branco |
+
+### 5.1 Fontes
+
+- **Fontes oficiais dos cases: Sora e Poppins** (definição do time de marketing). Não use Inter.
+- Divisão adotada: **Sora** no título ("Audaces + Cliente"); **Poppins** no subtítulo, na tag e
+  no botão. Os pesos estão na tabela de componentes acima.
+- Nomes exatos no Figma (sem espaço): Sora `Bold`/`SemiBold`/`ExtraBold`; Poppins `Medium`/`SemiBold`/`Bold`.
+  Sempre `await figma.loadFontAsync(...)` antes de editar.
+- O case Giadamarina (nov/2026) foi entregue em **Inter**, antes dessa definição. Não copie a fonte dele.
+  Ao duplicar o template, troque as fontes.
+- Ao trocar a fonte, a largura do título muda. Confira se o título ainda cabe com a margem e
+  se o bloco continua centralizado.
 
 Ao escalar tag ou botão para outro formato, use `instance.rescale(alturaAlvo / alturaAtual)` e,
 no botão, ajuste depois `cornerRadius = round(altura × 0,33)`.
@@ -178,7 +191,7 @@ O Figma anima camadas, mas **não é editor de vídeo**. Ele aceita vídeo de no
 IA só envia imagens de até 10MB. O fluxo aprovado é **Figma para a arte + ffmpeg para o vídeo**:
 
 1. **Camadas**: duplicar o STORIES 3 vezes, sem foto e sem fundo (`fills = []`):
-   gradientes / topo (logo + tag + título) / base (subtítulo + botão). Exportar com
+   gradientes / topo (logo + tag + título) / base (só o subtítulo; **botão oculto**). Exportar com
    `get_screenshot` (`maxDimension: 1920`, `contentsOnly: true`). Sai PNG RGBA transparente:
    `ov_grad.png`, `ov_top.png`, `ov_bot.png`.
 2. **Vídeo**: o usuário manda um link do Google Drive. Para baixar:
@@ -192,8 +205,9 @@ IA só envia imagens de até 10MB. O fluxo aprovado é **Figma para a arte + ffm
    começar num tempo forte de um trecho com energia. Giadamarina: "Kiara" (Bonobo), ≈129 bpm,
    início em 59,675s.
 5. **Cortes**: cada cena = **4 batidas** (≈1,86s), o que dá **8 cenas ≈ 15s** (16 cenas ≈ 30s).
-6. **Textos e botão visíveis desde o início** (fade de 0,7s no primeiro segundo). O usuário
-   pediu isso explicitamente; não deixe o CTA entrar só no final.
+6. **Textos visíveis desde o início** (fade de 0,7s no primeiro segundo) e **sem o botão
+   "SCOPRI LA STORIA" no vídeo**. O usuário pediu isso explicitamente. Oculte o botão na camada
+   "base" e reancore o subtítulo na margem de 250px (`y = 1920 − 250 − altura do bloco`).
 7. **Saída**: MP4 H.264 1080×1920, 25fps, CRF 18, AAC 192k, `+faststart` (≈12MB para 15s).
    Enviar ao usuário com `SendUserFile`. **Não** commitar vídeos no repositório.
 
@@ -220,8 +234,8 @@ O comando roda na pasta com `src.mp4`, `music.mp3`, `shots.txt` e os 3 PNGs. `BE
 - `instance.rescale()` cria override de `cornerRadius`; ajuste o raio depois de escalar.
 - Reenquadrar foto: alterar `imageTransform` do fill (`scaleMode: CROP`), por exemplo
   `[[sx,0,tx],[0,sy,ty]]`. Mantenha `sx/sy` na proporção do frame.
-- Sempre `await figma.loadFontAsync({family:'Inter', style:'Bold'|'Semi Bold'|'Medium'})` antes
-  de editar texto.
+- Sempre `await figma.loadFontAsync({family:'Sora', style:'Bold'})` / `({family:'Poppins', style:'Medium'})`
+  antes de editar texto. Atenção: no Inter o peso é `"Semi Bold"` (com espaço), em Sora/Poppins é `"SemiBold"`.
 - Verificação visual: screenshot do frame `8:11` inteiro (`maxDimension` 2048+) e de cada
   formato ao lado da referência correspondente.
 
@@ -231,6 +245,8 @@ O comando roda na pasta com `src.mp4`, `music.mp3`, `shots.txt` e os 3 PNGs. `BE
 
 - [ ] Logo **oficial**, no tamanho e posição da tabela da seção 5 (nenhuma no LinkedIn, banner e miniatura)
 - [ ] Título "Audaces + Cliente" (com **+**), sem placeholders em lugar nenhum
+- [ ] Fontes **Sora** (título) e **Poppins** (demais textos), sem Inter
+- [ ] Stories em vídeo **sem botão**
 - [ ] Margens: 80px; Stories 250px em cima e embaixo
 - [ ] Blocos com **largura fixa** e centro do bloco = centro do frame (ou alinhamento correto no e-mail e no LinkedIn)
 - [ ] Botão com raio ≈ 1/3 da altura
