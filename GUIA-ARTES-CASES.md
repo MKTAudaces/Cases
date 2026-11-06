@@ -131,7 +131,7 @@ Regras gerais: margem **80px** (Stories: **250px** em cima e embaixo). Fontes of
 | **FEED 1080×1350** | 50, centralizado, topo y=80 | Igual ao ADS, terminando em y=1270 | Igual ao ADS |
 | **STORIES 1080×1920** | 79, centralizado, topo y=250 | Topo: tag + título, largura 864, início y≈413, gap 36. Base: subtítulo + botão, largura 864, gap 44, terminando em y=1670 | Tag h67 · Título 112 · Subtítulo 36 · Botão h79 (raio 26) |
 | **THUMBNAIL-YOUTUBE 1920×1080** | 58, centralizado sobre o bloco, 70px acima da tag | Coluna largura 760, **texto centralizado**, no lado oposto ao da pessoa (Giadamarina: x=1025), centralizada na vertical | Tag h49 · Título 100 · Subtítulo 34 · **sem botão** · gap 32 |
-| **CAPA-LINKEDIN 1920×1080** | **nenhuma** | Tag + título **alinhados à esquerda**, lado oposto ao da pessoa (x=1030), centralizados na vertical, gap 40 | Tag h65 · Título 128 · **sem subtítulo e sem botão** |
+| **CAPA-LINKEDIN 1920×1080** | **nenhuma** | Tag + título **alinhados à esquerda**, lado oposto ao da pessoa (x=1030), centralizados na vertical, gap 40 | Tag h65 · Título 120 (com Sora, 128 estoura a margem) · **sem subtítulo e sem botão** |
 | **HEADER-E-MAIL 1200×600** | 50, canto superior esquerdo (80, 80) | Bloco **alinhado à direita** (`counterAxisAlignItems = MAX`, texto `RIGHT`), largura 520, borda direita em x=1120, centralizado na vertical, gap 18 | Tag h33 · Título 68 · Subtítulo 21 · Botão h50 |
 | **BANNER-SITE 1080×1350** | nenhuma | **Só foto + fade branco** na base (o texto vai no HTML do site). A pessoa precisa terminar antes do fade: reenquadrar com zoom out se for preciso | — |
 | **MINIATURA-LP 1280×780** | nenhuma | **Só a foto**, sem degradê | — |
@@ -157,8 +157,7 @@ Notas de julgamento:
   no botão. Os pesos estão na tabela de componentes acima.
 - Nomes exatos no Figma (sem espaço): Sora `Bold`/`SemiBold`/`ExtraBold`; Poppins `Medium`/`SemiBold`/`Bold`.
   Sempre `await figma.loadFontAsync(...)` antes de editar.
-- O case Giadamarina (nov/2026) foi entregue em **Inter**, antes dessa definição. Não copie a fonte dele.
-  Ao duplicar o template, troque as fontes.
+- O template Giadamarina já está em Sora + Poppins (componentes Tag `8:7` e Botão `8:9` incluídos).
 - Ao trocar a fonte, a largura do título muda. Confira se o título ainda cabe com a margem e
   se o bloco continua centralizado.
 
