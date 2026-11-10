@@ -24,6 +24,20 @@ Se faltar a foto ou a copy, **não comece**: peça o que falta, de forma curta e
 não estiver clara pela copy, pergunte também. Vídeo e música só são necessários se pedirem o Stories
 animado ou o GIF.
 
+**Se o pedido vier sem nada** (ex.: "preciso criar uma arte nova de case"), responda com este passo a
+passo, adaptando só o necessário:
+
+> Para criar o case, preciso de 3 coisas:
+> 1. **Arquivo no Figma**: crie um arquivo novo (pode ser vazio), cole nele a(s) foto(s) do case e me
+>    mande o link. Os formatos eu puxo do template oficial.
+> 2. **Copy do case** (blocos LP / TYP / ADS).
+> 3. **Frente**: Itália, Brasil, LATAM ou Global (inglês), se não estiver clara na copy.
+>
+> Se também quiser o **Stories animado** ou o **GIF**, mande o link do vídeo (Google Drive com acesso
+> "qualquer pessoa com o link") e a música.
+
+Não peça nada além disso (o template, as fontes e as regras já estão no guia).
+
 ### 2. Montar as artes
 
 1. **Template oficial**: página **"Template — Cases de Sucesso"** do arquivo "Referências e Padrões"
