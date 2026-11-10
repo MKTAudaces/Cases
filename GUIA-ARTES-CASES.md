@@ -11,14 +11,18 @@
 ## 0. Fluxo obrigatório (resumo)
 
 1. Ler este guia inteiro.
-2. Abrir as **referências** (seção 2) e o **último case pronto** (seção 3). Fazer screenshot
+2. Abrir as **referências** (seção 2) e o **template oficial** (seção 3). Fazer screenshot
    dos formatos em tamanho real e **medir** (logo, tag, título, botão, margens) com
    [`scripts/medir_referencia.py`](scripts/medir_referencia.py). Não estime a olho.
-3. **Partir do último case pronto como template**: duplicar o frame de formatos e trocar
-   foto e copy. Não criar do zero, porque foi do zero que vieram os erros do início.
-   A Plugin API **não copia nós entre arquivos**: o usuário deve **duplicar o arquivo do case
-   Giadamarina no Figma** (Duplicate) e enviar o link da cópia. Se o link for de um arquivo vazio,
-   peça isso antes de começar.
+3. **Usar o TEMPLATE OFICIAL** (seção 3): página **"Template — Cases de Sucesso"** no arquivo
+   "Referências e Padrões". Os 8 formatos são **componentes** com as propriedades `Título` e
+   `Subtítulo`. Não criar do zero, porque foi do zero que vieram os erros do início.
+   - Se a biblioteca estiver publicada, importe os componentes no arquivo do case com
+     `figma.importComponentByKeyAsync(key)` (chaves na seção 3) e crie instâncias. Funciona até
+     em arquivo vazio.
+   - Se a importação falhar (biblioteca não publicada ou não ativada), peça ao usuário para publicar
+     ou ativar a biblioteca, ou para colar/duplicar a página do template no arquivo do case. A Plugin
+     API **não copia nós entre arquivos**.
 4. Aplicar a copy com as adaptações da seção 4 (ex.: "+" no lugar de "x").
 5. Conferir **cada formato** com a tabela da seção 5 e o checklist da seção 9 antes de entregar.
 6. Entregar com screenshot e listar o que foi decidido por julgamento (ex.: "texto na base
@@ -86,28 +90,79 @@ editáveis** (tamanhos exatos e componentes).
 
 ---
 
-## 3. Estrutura do case Giadamarina (template)
+## 3. Template oficial (usar este)
 
-fileKey `ajnYMWhZIiZEmOnUxxqoeM`, página `Page 1`.
+Arquivo **Referências e Padrões** (fileKey `GyaCNTxVmORyOqJP1cwIxK`), página
+**"Template — Cases de Sucesso"** (`21:14`). Link:
+https://www.figma.com/design/GyaCNTxVmORyOqJP1cwIxK/Refer%C3%AAncias-e-Padr%C3%B5es
 
-| Elemento | nodeId | Notas |
+Seções da página:
+
+| Seção | nodeId | Conteúdo |
 |---|---|---|
-| Frame com todos os formatos | `8:11` | Duplicar este frame para um novo case |
-| ADS 1080×1080 | `8:12` | |
-| FEED 1080×1350 | `8:27` | |
-| BANNER-SITE 1080×1350 | `8:42` | Bloco de texto e degradês ocultos; retângulo "Fade branco" |
-| STORIES 1080×1920 | `8:55` | |
-| THUMBNAIL-YOUTUBE 1920×1080 | `8:71` | |
-| CAPA-LINKEDIN 1920×1080 | `8:84` | Logo, subtítulo e botão ocultos |
-| HEADER-E-MAIL 1200×600 | `8:99` | |
-| MINIATURA-LP 1280×780 | `8:114` | Bloco de texto e degradês ocultos |
-| Componente **Tag / Storia di successo** | `8:7` | |
-| Componente **Botão CTA** | `8:9` | |
-| **Logo oficial Audaces** (símbolo branco, vetor) | `13:40` "Logo simbolo_white 1" | **Fonte da logo.** Clonar e usar `rescale()`; não usar instância gerada. |
-| Camadas do Stories em vídeo | `24:14` gradientes · `24:28` topo · `24:42` base | PNG transparente para o vídeo (seção 7) |
+| 00 · Leia-me | `22:142` | Como usar, regras fixas, padrões por formato, checklist |
+| 01 · Fundamentos e componentes | `22:154` | Cores (variáveis), tipografia, logo, tag, botão |
+| 02 · Formatos (componentes) | `22:178` | Os 9 componentes de formato, com foto provisória |
+| 03 · Stories em vídeo — camadas | `22:179` | 3 instâncias do STORIES ANIMADO: gradientes / topo / base, para exportar como PNG transparente |
+| 04 · Exemplo preenchido — Giadamarina | `22:180` | Instâncias preenchidas (foto + copy), como referência visual |
 
-Camadas de cada formato: `Foto` (image fill, `scaleMode: CROP`), `Gradiente` (1 ou 2 retângulos),
-`Logo Audaces`, `Conteúdo` (auto-layout vertical: tag, `Título`, `Subtítulo`, botão).
+### Componentes (chaves para `importComponentByKeyAsync`)
+
+| Componente | nodeId | key | Propriedades |
+|---|---|---|---|
+| Logo Audaces / Símbolo branco | `21:19` | `c56144597a5b83ba3892f4e0eb7dfea84d374ec2` | — (escalar com `rescale`) |
+| Tag / Storia di successo | `19:124` | `dadb612462d048d9dd297421adae8396e2dfdb37` | `Texto` |
+| Botão CTA | `19:126` | `e7d779e919c0433f33cbbdbb8e18f88be2e9bec6` | `Texto` |
+| Formato / ADS 1080×1080 | `21:44` | `4a5859a113b7f72c287f07b414d8e3fd5634df8c` | `Título`, `Subtítulo` |
+| Formato / FEED 1080×1350 | `21:45` | `b63827e463e4fbeeed3b339f55d91e797325f23c` | `Título`, `Subtítulo` |
+| Formato / BANNER-SITE 1080×1350 | `21:46` | `2fa3b73e6a38d07b408d2b75bfc1ad60803f4677` | (texto oculto) |
+| Formato / STORIES 1080×1920 | `21:47` | `eff26f7cf6a1cfb4706e31686c7396261735b008` | `Título`, `Subtítulo` |
+| Formato / STORIES ANIMADO 1080×1920 | `21:48` | `a44bb2a026da0201c8fcb5bdde6e62dcfa85f8e3` | `Título`, `Subtítulo` (sem botão) |
+| Formato / THUMBNAIL-YOUTUBE 1920×1080 | `21:49` | `e3b2609e800258a718a14a83afc0650cbd97996c` | `Título`, `Subtítulo` |
+| Formato / CAPA-LINKEDIN 1920×1080 | `21:50` | `c01e20828ee273941d4975ddd0eb767853e24cc4` | `Título` |
+| Formato / HEADER-E-MAIL 1200×600 | `21:51` | `40eeb6401cdbeb4980e6273cb7296b6206e35dc6` | `Título`, `Subtítulo` |
+| Formato / MINIATURA-LP 1280×780 | `21:52` | `5362ce05fa373055efcd2f98625eff5c06d323c7` | (só foto) |
+
+**Testado em 10/nov/2026** num arquivo vazio ("Teste Claudionho"): os 9 formatos foram importados da
+biblioteca publicada, os textos foram preenchidos pelas propriedades e a foto foi trocada pelo método acima.
+
+Variáveis de cor (coleção **"Cases"**): `cta/laranja` #FF5E00 (fill do botão), `texto/branco`
+#FFFFFF (textos e contorno da tag), `overlay/base` #0A0A0F (cor base dos degradês).
+
+Os nomes das chaves de propriedade têm sufixo (ex.: `Título#21:0`). Leia
+`instance.componentProperties` e procure pela que começa com `Título` / `Subtítulo`.
+
+### Como montar um case novo a partir do template
+
+```js
+const ads = await figma.importComponentByKeyAsync("4a5859a113b7f72c287f07b414d8e3fd5634df8c");
+const i = ads.createInstance();
+const props = Object.keys(i.componentProperties);
+i.setProperties({
+  [props.find(p => p.startsWith("Título"))]: "Audaces +\nCliente",
+  [props.find(p => p.startsWith("Subtítulo"))]: "Frase do bloco ADS\nem duas linhas.",
+});
+// Foto: upload_assets SEM nodeIds (ele não aceita IDs de camadas de instância, ex. "I2:23;19:7"),
+// POST do arquivo → resposta traz imageHash e placedOnNodeId (nó temporário). Depois:
+const foto = i.findOne(n => n.name === "Foto (substituir)");
+foto.fills = [{ type: "IMAGE", imageHash: HASH, scaleMode: "CROP",
+                imageTransform: [[sx, 0, tx], [0, sy, ty]] }]; // enquadrar: rosto livre de texto
+(await figma.getNodeByIdAsync(PLACED_ON_NODE_ID)).remove();
+```
+
+Camadas de cada formato: `Foto (substituir)` (fill de imagem, `scaleMode: CROP`), `Gradiente`
+(1 ou 2 retângulos), `Logo Audaces` (instância), `Conteúdo` (auto-layout vertical: tag, `Título`,
+`Subtítulo`, botão).
+
+- **Textos muito longos** (nome de cliente comprido): reduza o tamanho do título na instância
+  até caber com a margem de 80px e mantenha a centralização. Avise o usuário.
+- **Ao mudar o template**: edite o componente principal, peça ao usuário para **publicar** a
+  biblioteca de novo e atualize este guia.
+
+### Case Giadamarina (arquivo original)
+
+fileKey `ajnYMWhZIiZEmOnUxxqoeM`, frame `8:11`. É o case que deu origem ao template. Só use para
+consulta: o template acima é a fonte oficial.
 
 ---
 
@@ -160,7 +215,7 @@ Notas de julgamento:
   no botão. Os pesos estão na tabela de componentes acima.
 - Nomes exatos no Figma (sem espaço): Sora `Bold`/`SemiBold`/`ExtraBold`; Poppins `Medium`/`SemiBold`/`Bold`.
   Sempre `await figma.loadFontAsync(...)` antes de editar.
-- O template Giadamarina já está em Sora + Poppins (componentes Tag `8:7` e Botão `8:9` incluídos).
+- O template oficial (seção 3) já está em Sora + Poppins.
 - Ao trocar a fonte, a largura do título muda. Confira se o título ainda cabe com a margem e
   se o bloco continua centralizado.
 
@@ -231,15 +286,20 @@ O comando roda na pasta com `src.mp4`, `music.mp3`, `shots.txt` e os 3 PNGs. `BE
   `findAll(n => n.name === 'Título')`.
 - **Margem e centralização**: depois de mudar a fonte ou o texto, recalcule `y` do bloco
   (`y = alturaFrame − margem − bloco.height`). O auto-layout em HUG muda de altura.
-- **Trocar a logo**: clonar `13:40`, `rescale(tamanho / largura)`, inserir no frame do formato
-  (fora do auto-layout) e posicionar em x/y absolutos.
+- **Logo**: use sempre uma instância do componente `Logo Audaces / Símbolo branco` (key na seção 3),
+  `rescale(tamanho / largura)`, fora do auto-layout, em x/y absolutos.
+- **Nunca use `rescale()` no componente principal que já tem instâncias**: as instâncias encolhem
+  junto e o conteúdo fica minúsculo. Se precisar, corrija com `resetOverrides()` nas instâncias.
+- **Tamanho e posição de filhos de instância não podem ser alterados.** Se um texto mais longo fizer
+  o bloco passar da margem (ex.: subtítulo em 3 linhas), use `instance.detachInstance()` e reposicione
+  o bloco (`y = alturaFrame − margem − bloco.height`).
 - `instance.rescale()` cria override de `cornerRadius`; ajuste o raio depois de escalar.
 - Reenquadrar foto: alterar `imageTransform` do fill (`scaleMode: CROP`), por exemplo
   `[[sx,0,tx],[0,sy,ty]]`. Mantenha `sx/sy` na proporção do frame.
 - Sempre `await figma.loadFontAsync({family:'Sora', style:'Bold'})` / `({family:'Poppins', style:'Medium'})`
   antes de editar texto. Atenção: no Inter o peso é `"Semi Bold"` (com espaço), em Sora/Poppins é `"SemiBold"`.
-- Verificação visual: screenshot do frame `8:11` inteiro (`maxDimension` 2048+) e de cada
-  formato ao lado da referência correspondente.
+- Verificação visual: screenshot de todos os formatos do case (`maxDimension` 2048+) e de cada
+  formato ao lado da instância de exemplo correspondente (seção 04 do template).
 
 ---
 
