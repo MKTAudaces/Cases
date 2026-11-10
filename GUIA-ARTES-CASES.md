@@ -113,6 +113,7 @@ Seções da página:
 | Logo Audaces / Símbolo branco | `21:19` | `c56144597a5b83ba3892f4e0eb7dfea84d374ec2` | — (escalar com `rescale`) |
 | Tag / Storia di successo (**component set**) | `25:148` | `603f0de04ffed9727d776f8bc5d42f8a09b19b26` | `Idioma` = IT · PT-BR · ES-LATAM · EN-Global |
 | Botão CTA (**component set**) | `25:155` | `ee0e7c2373b011fa053512ced4aed8ce44a32e4d` | `Idioma` = IT · PT-BR · ES-LATAM · EN-Global |
+| Foto redonda / Usuário (300×300) | `28:142` | `b0e61b800df698cb61a5e79a63fcca2ff83d7f5d` | camada `Foto (substituir)` |
 | Formato / ADS 1080×1080 | `21:44` | `4a5859a113b7f72c287f07b414d8e3fd5634df8c` | `Título`, `Subtítulo` |
 | Formato / FEED 1080×1350 | `21:45` | `b63827e463e4fbeeed3b339f55d91e797325f23c` | `Título`, `Subtítulo` |
 | Formato / BANNER-SITE 1080×1350 | `21:46` | `2fa3b73e6a38d07b408d2b75bfc1ad60803f4677` | (texto oculto) |
@@ -196,6 +197,45 @@ consulta: o template acima é a fonte oficial.
 - "Não precisa seguir à risca": priorize a consistência com as outras artes do case.
 - LP, TYP, título SEO e meta description **não fazem parte das artes**. Só crie telas de LP
   se o usuário pedir explicitamente.
+
+### 4.1 Nome dos arquivos exportados
+
+Padrão: **`Case_Empresa_FORMATO_LARGURAxALTURA-PROPORÇÃO_FRENTE`**
+
+- **Empresa**: nome do cliente sem espaços nem acentos (ex.: `Giadamarina`, `ModaMagia`).
+- **FORMATO** e **resolução**:
+
+| Formato | Resolução-proporção |
+|---|---|
+| `ADS` | `1080x1080-1x1` |
+| `FEED` | `1080x1350-4x5` |
+| `BANNER-SITE` | `1080x1350-4x5` |
+| `STORIES` | `1080x1920-9x16` |
+| `STORIES-ANIMADO` (MP4) | `1080x1920-9x16` |
+| `THUMBNAIL-YOUTUBE` | `1920x1080-16x9` |
+| `CAPA-LINKEDIN` | `1920x1080-16x9` |
+| `HEADER-EMAIL` | `1200x600-2x1` |
+| `MINIATURA-LP` | `1280x780-64x39` |
+| `FOTO-REDONDA` | `300x300-1x1` |
+| `VIDEO-FUNDO` (MP4) | `1920x1080-16x9` |
+| `GIF` | `600x338-16x9` (tamanho real do GIF) |
+
+- **FRENTE**: `IT`, `PT-BR`, `ES-LATAM` ou `EN-Global`.
+- A proporção usa `x` (`1x1`) porque `/` e `:` não são permitidos em nome de arquivo.
+- Exemplos: `Case_Giadamarina_ADS_1080x1080-1x1_IT.png` · `Case_Giadamarina_STORIES-ANIMADO_1080x1920-9x16_PT-BR.mp4`.
+- No Figma, **renomeie cada instância com esse nome** (sem extensão) e adicione export PNG 1x. Como a
+  exportação usa o nome da camada, "Export" já sai com o nome certo. Veja os exemplos na seção 04 do template.
+
+### 4.2 Foto redonda do usuário (para LP e TYP)
+
+As LPs e TYPs são feitas fora deste fluxo. Das artes, elas só precisam de **uma foto redonda da pessoa
+que aparece no vídeo/foto do case** (quando houver pessoa).
+
+- Use o componente **`Foto redonda / Usuário`** (300×300, círculo, sem borda).
+- Enquadramento: rosto centralizado, olhos a ~40% da altura, ombros visíveis (como no exemplo
+  `Case_Giadamarina_FOTO-REDONDA_300x300-1x1_IT` da seção 04 do template).
+- Troque o fill da camada `Foto (substituir)` (`scaleMode: CROP` + `imageTransform`).
+- Exporte PNG transparente 1x e 2x (`@2x`), com o padrão de nome da seção 4.1.
 
 ---
 
@@ -285,7 +325,13 @@ IA só envia imagens de até 10MB. O fluxo aprovado é **Figma para a arte + ffm
 6. **Textos visíveis desde o início** (fade de 0,7s no primeiro segundo) e **sem o botão
    "SCOPRI LA STORIA" no vídeo**. O usuário pediu isso explicitamente. Oculte o botão na camada
    "base" e reancore o subtítulo na margem de 250px (`y = 1920 − 250 − altura do bloco`).
-7. **Saída**: MP4 H.264 1080×1920, 25fps, CRF 18, AAC 192k, `+faststart` (≈12MB para 15s).
+7. **Uma versão por frente**: se o case sai em mais de um idioma, troque a variante `Idioma` (tag; o
+   Stories em vídeo não tem botão) e o subtítulo para a copy daquela frente nas camadas, reexporte os PNGs
+   e renderize de novo. Os cortes e a música podem ser os mesmos, salvo pedido diferente.
+8. **GIF / vídeo de fundo** (ex.: para RD Station): mesmos cortes, quadro inteiro 16:9, sem textos e sem
+   música. O GIF fica com 600px de largura e ~17fps (≈5–6MB para 15s). Em 1920px ele passa de 40MB.
+   Use `hqdn3d` + `palettegen`/`paletteuse` (ffmpeg) + `gifsicle -O3 --lossy=200`.
+9. **Saída**: MP4 H.264 1080×1920, 25fps, CRF 18, AAC 192k, `+faststart` (≈12MB para 15s).
    Enviar ao usuário com `SendUserFile`. **Não** commitar vídeos no repositório.
 
 Script: [`scripts/render.py`](scripts/render.py), com o exemplo de cenas em
@@ -328,6 +374,8 @@ O comando roda na pasta com `src.mp4`, `music.mp3`, `shots.txt` e os 3 PNGs. `BE
 - [ ] Logo **oficial**, no tamanho e posição da tabela da seção 5 (nenhuma no LinkedIn, banner e miniatura)
 - [ ] Título "Audaces + Cliente" (com **+**), sem placeholders em lugar nenhum
 - [ ] Tag e botão na variante `Idioma` da frente do case; subtítulo no mesmo idioma
+- [ ] Instâncias renomeadas no padrão `Case_Empresa_FORMATO_RESOLUÇÃO_FRENTE`
+- [ ] Foto redonda do usuário gerada (se houver pessoa no case)
 - [ ] Fontes **Sora** (título) e **Poppins** (demais textos), sem Inter
 - [ ] Stories em vídeo **sem botão**
 - [ ] Margens: 80px; Stories 250px em cima e embaixo

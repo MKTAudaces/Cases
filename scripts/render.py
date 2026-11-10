@@ -21,7 +21,7 @@ import subprocess
 BEAT = 0.46439909      # duração de 1 batida da música em segundos (Kiara/Bonobo ≈ 129 bpm)
 BEATS_PER_SHOT = 4     # cada cena dura 4 batidas (≈1,86s)
 MUSIC_START = 59.675   # segundo da música onde o vídeo começa (escolher um tempo forte)
-OUT = "story_15s.mp4"
+OUT = "Case_Empresa_STORIES-ANIMADO_1080x1920-9x16_FRENTE.mp4"  # padrão de nome (guia, seção 4.1)
 OUT_W, OUT_H, FPS = 1080, 1920, 25
 # ----------------------------------------------
 
