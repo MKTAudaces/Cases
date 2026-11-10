@@ -27,7 +27,9 @@ por formato, botão, degradê, padrões de banner/miniatura/LinkedIn/e-mail, Sto
    3. Apague o nó temporário (`placedOnNodeId`).
 
    Depois ajuste o enquadramento por formato: rosto livre de texto, sem legenda gravada nas bordas.
-3. **Copy**: use o bloco ADS da copy, adaptado conforme a seção 4 do guia ("Audaces + Cliente").
+3. **Copy e idioma**: identifique a frente (Itália, Brasil, LATAM, Global/inglês); se não estiver
+   claro, pergunte. Use o bloco ADS da copy ("Audaces + Cliente") e a variante `Idioma` da tag e do
+   botão (IT · PT-BR · ES-LATAM · EN-Global), conforme a seção 4 do guia.
 4. Confira cada formato pelo checklist da seção 9 do guia antes de entregar, com screenshot.
 
 ## Vídeo (Stories animado)

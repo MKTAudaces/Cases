@@ -111,8 +111,8 @@ Seções da página:
 | Componente | nodeId | key | Propriedades |
 |---|---|---|---|
 | Logo Audaces / Símbolo branco | `21:19` | `c56144597a5b83ba3892f4e0eb7dfea84d374ec2` | — (escalar com `rescale`) |
-| Tag / Storia di successo | `19:124` | `dadb612462d048d9dd297421adae8396e2dfdb37` | `Texto` |
-| Botão CTA | `19:126` | `e7d779e919c0433f33cbbdbb8e18f88be2e9bec6` | `Texto` |
+| Tag / Storia di successo (**component set**) | `25:148` | `603f0de04ffed9727d776f8bc5d42f8a09b19b26` | `Idioma` = IT · PT-BR · ES-LATAM · EN-Global |
+| Botão CTA (**component set**) | `25:155` | `ee0e7c2373b011fa053512ced4aed8ce44a32e4d` | `Idioma` = IT · PT-BR · ES-LATAM · EN-Global |
 | Formato / ADS 1080×1080 | `21:44` | `4a5859a113b7f72c287f07b414d8e3fd5634df8c` | `Título`, `Subtítulo` |
 | Formato / FEED 1080×1350 | `21:45` | `b63827e463e4fbeeed3b339f55d91e797325f23c` | `Título`, `Subtítulo` |
 | Formato / BANNER-SITE 1080×1350 | `21:46` | `2fa3b73e6a38d07b408d2b75bfc1ad60803f4677` | (texto oculto) |
@@ -142,6 +142,9 @@ i.setProperties({
   [props.find(p => p.startsWith("Título"))]: "Audaces +\nCliente",
   [props.find(p => p.startsWith("Subtítulo"))]: "Frase do bloco ADS\nem duas linhas.",
 });
+// Idioma da tag e do botão (instâncias expostas dentro do formato)
+for (const n of i.findAll(n => n.type === "INSTANCE" && (n.name.startsWith("Tag") || n.name.startsWith("Botão"))))
+  n.setProperties({ Idioma: "PT-BR" }); // IT | PT-BR | ES-LATAM | EN-Global
 // Foto: upload_assets SEM nodeIds (ele não aceita IDs de camadas de instância, ex. "I2:23;19:7"),
 // POST do arquivo → resposta traz imageHash e placedOnNodeId (nó temporário). Depois:
 const foto = i.findOne(n => n.name === "Foto (substituir)");
@@ -168,11 +171,28 @@ consulta: o template acima é a fonte oficial.
 
 ## 4. Copy: como adaptar
 
-- A copy chega em italiano (blocos LP / TYP / ADS). **As artes usam o bloco ADS**:
-  - título: **"Audaces +" / "Cliente"** em 2 linhas, Title Case. Nunca usar "x" e nunca caixa alta, mesmo que a copy venha assim;
-  - subtítulo: a frase do ADS, quebrada em 2 linhas equilibradas (ex.: "La tradizione Made in Italy evolve / con l'automazione.");
-  - CTA: **"SCOPRI LA STORIA"**;
-  - tag: **"STORIA DI SUCCESSO"**.
+- **Primeiro identifique a frente (mercado/idioma) do case**: Itália, Brasil, LATAM ou Global (inglês).
+  Se a copy não deixar claro, pergunte. Um case pode sair em mais de uma frente: monte um conjunto
+  de formatos por idioma (ex.: uma página do Figma por idioma).
+- A copy chega em blocos LP / TYP / ADS. **As artes usam o bloco ADS**:
+  - título: **"Audaces +" / "Cliente"** em 2 linhas, Title Case, igual em todos os idiomas. Nunca usar "x" e nunca caixa alta, mesmo que a copy venha assim;
+  - subtítulo: a frase do ADS **no idioma da frente**, quebrada em 2 linhas equilibradas (ex.: "La tradizione Made in Italy evolve / con l'automazione.");
+  - tag e botão: escolha a variante **`Idioma`** na tag e no botão de cada formato (`instancia.setProperties({Idioma: "PT-BR"})`).
+
+| Frente | `Idioma` | Tag | Botão |
+|---|---|---|---|
+| Itália | `IT` | STORIA DI SUCCESSO | SCOPRI LA STORIA |
+| Brasil | `PT-BR` | CASE DE SUCESSO | ASSISTA AGORA |
+| LATAM (espanhol) | `ES-LATAM` | CASO DE ÉXITO | VER LA HISTORIA |
+| Global (inglês) | `EN-Global` | SUCCESS STORY | WATCH THE STORY |
+
+- Os CTAs acima são para **destino em vídeo** (o padrão dos cases). Se o destino for texto, ajuste
+  o botão (EN: *Read the story*; regra do manual de marca). PT-BR vem do case Univali; ES-LATAM e
+  EN seguem o glossário da skill `formato-traducao-ingles` / `marca-audaces`. Valide com o time
+  antes da primeira publicação em cada frente.
+- **Inglês**: siga a skill `formato-traducao-ingles`. **Espanhol/português**: `marca-audaces` → idiomas.
+  Nomes de produto mudam por mercado (ex.: Audaces Encaixe = Audaces Tizada em espanhol,
+  Audaces Marker em inglês/italiano).
 - "Não precisa seguir à risca": priorize a consistência com as outras artes do case.
 - LP, TYP, título SEO e meta description **não fazem parte das artes**. Só crie telas de LP
   se o usuário pedir explicitamente.
@@ -203,8 +223,8 @@ Notas de julgamento:
 
 | Componente | Especificação |
 |---|---|
-| **Tag** | Pílula (raio 999), contorno branco 2px, sem preenchimento, Poppins **Medium 22**, maiúsculas, espaçamento 6%, padding 26×11 → ≈292×49 |
-| **Botão** | Preenchimento laranja `#FF5E00` (referência mede `#FF6700`), Poppins **SemiBold 28** branco, espaçamento 2%, padding 36×16 → ≈342×66, **raio 22** |
+| **Tag** | Variante `Idioma` (seção 4). Pílula (raio 999), contorno branco 2px, sem preenchimento, Poppins **Medium 22**, maiúsculas, espaçamento 6%, padding 26×11 → ≈292×49 |
+| **Botão** | Variante `Idioma` (seção 4). Preenchimento laranja `#FF5E00` (referência mede `#FF6700`), Poppins **SemiBold 28** branco, espaçamento 2%, padding 36×16 → ≈342×66, **raio 22** |
 | **Título** | **Sora Bold**, entrelinha 95%, espaçamento −2%, branco |
 | **Subtítulo** | **Poppins Medium**, entrelinha 130%, branco |
 
@@ -307,6 +327,7 @@ O comando roda na pasta com `src.mp4`, `music.mp3`, `shots.txt` e os 3 PNGs. `BE
 
 - [ ] Logo **oficial**, no tamanho e posição da tabela da seção 5 (nenhuma no LinkedIn, banner e miniatura)
 - [ ] Título "Audaces + Cliente" (com **+**), sem placeholders em lugar nenhum
+- [ ] Tag e botão na variante `Idioma` da frente do case; subtítulo no mesmo idioma
 - [ ] Fontes **Sora** (título) e **Poppins** (demais textos), sem Inter
 - [ ] Stories em vídeo **sem botão**
 - [ ] Margens: 80px; Stories 250px em cima e embaixo
