@@ -123,6 +123,9 @@ Seções da página:
 | Formato / HEADER-E-MAIL 1200×600 | `21:51` | `40eeb6401cdbeb4980e6273cb7296b6206e35dc6` | `Título`, `Subtítulo` |
 | Formato / MINIATURA-LP 1280×780 | `21:52` | `5362ce05fa373055efcd2f98625eff5c06d323c7` | (só foto) |
 
+**Testado em 10/nov/2026** num arquivo vazio ("Teste Claudionho"): os 9 formatos foram importados da
+biblioteca publicada, os textos foram preenchidos pelas propriedades e a foto foi trocada pelo método acima.
+
 Variáveis de cor (coleção **"Cases"**): `cta/laranja` #FF5E00 (fill do botão), `texto/branco`
 #FFFFFF (textos e contorno da tag), `overlay/base` #0A0A0F (cor base dos degradês).
 
@@ -139,8 +142,12 @@ i.setProperties({
   [props.find(p => p.startsWith("Título"))]: "Audaces +\nCliente",
   [props.find(p => p.startsWith("Subtítulo"))]: "Frase do bloco ADS\nem duas linhas.",
 });
-// Foto: upload_assets com nodeIds = [id da camada "Foto (substituir)" dentro da instância]
-// e depois ajuste imageTransform do fill para enquadrar (rosto livre de texto).
+// Foto: upload_assets SEM nodeIds (ele não aceita IDs de camadas de instância, ex. "I2:23;19:7"),
+// POST do arquivo → resposta traz imageHash e placedOnNodeId (nó temporário). Depois:
+const foto = i.findOne(n => n.name === "Foto (substituir)");
+foto.fills = [{ type: "IMAGE", imageHash: HASH, scaleMode: "CROP",
+                imageTransform: [[sx, 0, tx], [0, sy, ty]] }]; // enquadrar: rosto livre de texto
+(await figma.getNodeByIdAsync(PLACED_ON_NODE_ID)).remove();
 ```
 
 Camadas de cada formato: `Foto (substituir)` (fill de imagem, `scaleMode: CROP`), `Gradiente`
