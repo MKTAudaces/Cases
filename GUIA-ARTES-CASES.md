@@ -96,6 +96,9 @@ Componentes locais: `Tag / Case de sucesso` e `Botão CTA` (frame `Componentes`)
 | THUMBNAIL 1920×1080 | `8:24` | Pessoas à esquerda, fundo escuro à direita. Coluna de 720 em x=1120, centralizada: logo 58 (70 acima da tag), tag, título 100, subtítulo 34 e bloco "Com" (nomes SemiBold 28 + cargos Medium 22). Sem botão. |
 | BANNER-NEWSLETTER 1200×600 | `8:44` | Bloco alinhado à direita (largura 480, borda em 1120) com a **logo no topo do bloco**, tag h33, título 68, subtítulo 21 e botão h50. |
 | MINIATURA-LP 1200×630 | `8:57` | Igual à newsletter, só com logo, tag e título 84 (a copy pedia texto nesse formato). |
+| FEED 1080×1350 | `21:7` | Versão feed da capa de Reels: logo 50 em y=80; base com tag h49, citação Sora Bold 50, autor (SemiBold 30 + cargo Medium 22) e botão h66, terminando em y=1270. |
+| BANNER-SITE 1080×1350 | `19:21` | Só foto + fade branco (padrão da seção 5). Carolina com rosto e tronco acima do fade. |
+| AVATAR 300×300 | `19:35` | Frame circular (raio 383) com o rosto da Carolina centralizado. Formato novo, usado na LP. |
 
 - Copy BR: título **"Cliente + Produto"** em Title Case ("Iódice + LooksMaker"), tag **"CASE DE SUCESSO"**
   e CTA da copy ("ASSISTA O DEPOIMENTO NA ÍNTEGRA").
