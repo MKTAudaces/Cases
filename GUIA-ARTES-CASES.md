@@ -83,6 +83,30 @@ editáveis** (tamanhos exatos e componentes).
 | Case | URL | Frame de formatos |
 |---|---|---|
 | **Giadamarina** (nov/2026) | https://www.figma.com/design/ajnYMWhZIiZEmOnUxxqoeM/Case-Giadamarina?node-id=8-11 | `8:11` "Novo Case — Formatos" |
+| **Iódice** (nov/2026, Brasil) | https://www.figma.com/design/fG92o7GKPAoLwnlxuCCKnj/Case-I%C3%B3dice-2026?node-id=8-2 | `8:2` "Case Iódice — Formatos" |
+
+### 2.3 Case Iódice (Brasil): formatos e decisões
+
+Case em português com formatos diferentes do Giadamarina. Reconstruído do zero seguindo este guia.
+Componentes locais: `Tag / Case de sucesso` e `Botão CTA` (frame `Componentes`).
+
+| Formato | nodeId | Layout |
+|---|---|---|
+| STORIES-FEED (capa de Reels) 1080×1920 | `8:8` | Logo 79 em y=365. Base: tag, **citação** (Sora Bold 56, 5 linhas equilibradas), autor (Poppins SemiBold 34 + cargo Medium 26) e botão h79, terminando em y=1555. |
+| THUMBNAIL 1920×1080 | `8:24` | Pessoas à esquerda, fundo escuro à direita. Coluna de 720 em x=1120, centralizada: logo 58 (70 acima da tag), tag, título 100, subtítulo 34 e bloco "Com" (nomes SemiBold 28 + cargos Medium 22). Sem botão. |
+| BANNER-NEWSLETTER 1200×600 | `8:44` | Bloco alinhado à direita (largura 480, borda em 1120) com a **logo no topo do bloco**, tag h33, título 68, subtítulo 21 e botão h50. |
+| MINIATURA-LP 1200×630 | `8:57` | Igual à newsletter, só com logo, tag e título 84 (a copy pedia texto nesse formato). |
+
+- Copy BR: título **"Cliente + Produto"** em Title Case ("Iódice + LooksMaker"), tag **"CASE DE SUCESSO"**
+  e CTA da copy ("ASSISTA O DEPOIMENTO NA ÍNTEGRA").
+- **Capa de Reels**: todo o conteúdo fica dentro do recorte 4:5 do feed (y 285–1635) com 80px de
+  margem (y 365–1555), em vez da margem de 250px do Stories.
+- Fotos 3:2 em formatos largos com as pessoas ocupando a largura toda: foto alinhada à esquerda,
+  degradê lateral para um **painel escuro `#0A0A0F`** à direita e texto sobre o painel. Assim o
+  texto não cobre rosto nenhum. Corte a foto para esconder letreiros na parede (ex.: "IÓDICE")
+  e pessoas de fundo.
+- No Stories com foto horizontal, a foto começa em y=300 e o topo é escuro, com fade. Assim a
+  cabeça fica abaixo da logo.
 
 ---
 
